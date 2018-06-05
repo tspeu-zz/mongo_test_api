@@ -1,5 +1,7 @@
 // import hapi from "hapi";
 const hapi = require('hapi');
+//mongoose
+const mongoose = require('mongoose');
 
 //Secondly, we make a constant called server which 
 //creates a new instance of our Hapi server — as the 
