@@ -18,6 +18,15 @@ the init()function.
 */
 
 const init = async() =>{
+    server.route({
+        method : 'GET',
+        path: '/',
+        handler : function(req, res) {
+            return `<h1>Api de prueba</h1>`;
+        }
+    });
+
+
     await server.start();
     console.log(`Server anandado : ${server.info.uri}`);
 };
