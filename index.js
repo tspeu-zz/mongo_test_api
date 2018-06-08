@@ -3,9 +3,23 @@ const hapi = require('hapi');
 //mongoose
 const mongoose = require('mongoose');
 
+//CONECT mongoDb
+mongoose.connect('mongodb://jm:peras998@ds147180.mlab.com:47180/api-tes-jm');
+//mongodb://<dbuser>:<dbpassword>@ds147180.mlab.com:47180/api-tes-jm
+//mongodb://<adminuser>:<password>@ds012345-a0.mlab.com:56789,ds012345-a1.mlab.com:56790/admin?replicaSet=rs-ds012345
+//172.21.0.0/16
+
+//open conccetion
+mongoose.connection.once('open', () => {
+    console.log('Db mongo todo ok');
+}).on('error', () => {
+    console.log('fallo al concet mongoDb');
+});
+
+
 //Secondly, we make a constant called server which 
 //creates a new instance of our Hapi server — as the 
-// arguments, we pass an object with the port and host 
+// arguments, we pass an object cd with the port and host 
 // options.
 const server = hapi.Server({
     port : 4000,
