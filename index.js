@@ -2,7 +2,8 @@
 const hapi = require('hapi');
 //mongoose
 const mongoose = require('mongoose');
-
+//modelo
+const Painting = require('./models/paints');
 //CONECT mongoDb
 mongoose.connect('mongodb://jm:peras998@ds147180.mlab.com:47180/api-tes-jm');
 //mongodb://<dbuser>:<dbpassword>@ds147180.mlab.com:47180/api-tes-jm
@@ -34,13 +35,31 @@ the init()function.
 */
 
 const init = async() =>{
-    server.route({
-        method : 'GET',
-        path: '/',
-        handler : function(req, res) {
-            return `<h1>Api de prueba</h1>`;
-        }
-    });
+    server.route([
+        {
+            method : 'GET',
+            path: '/',
+            handler : function(req, res) {
+                return `<h1>Api de prueba</h1>`;
+            }
+        },{
+            method: 'GET',
+            path: '/api/v1/paintings',
+            handler: (req,res) => {
+                return Painting.find();
+            }
+        },{
+            method: 'POST',
+            path: '/api/v1/paintings',
+            handler: (req,res) => {
+                const {name, url, techniques} = res.payload;
+                const paintings = new Painting({
+                    name, url, techniques
+                });
+                return paintings.save();
+            }
+        } 
+    ]);
 
 
     await server.start();
